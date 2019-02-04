@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {  Text } from 'react-native';
-import { Button, Card, CardSection, Input } from './Common';
+import { Button, Card, CardSection, Input, Spinner } from './Common';
 import firebase from 'firebase';
 
 
@@ -8,24 +8,39 @@ class LoginForm extends Component {
     state = { 
         email: '',
         password: '',
-        error: ''
+        error: '',
+        loading: false
     };
 
     onButtonPress() {
         const { email, password } = this.state;
 
+        this.setState({ error: '', loading: true });
+
         firebase.auth().signInWithEmailAndPassword(email, password)
             .catch(() => {
                 firebase.auth().createUserWithEmailAndPassword(email, password)
                     .catch(() => {
-                        this.setState({ error: 'Authenticatio Failed'})        
+                        this.setState({ error: 'Authentication Failed'})        
                     });
             });
     }
 
+    renderButton() {
+        if(this.state.loading) {
+            return <Spinner size="small"/>
+        }
+        
+        return (
+            <Button onPress={this.onButtonPress.bind(this)}>
+                Log in
+            </Button>   
+        );
+    }
+
     render() {
         return(
-            <Card>
+            <Card style={{ width: '100%', height: 'auto' }}>
                 <CardSection>
                     <Input
                         placeholder="user@gmail.com"
@@ -43,14 +58,12 @@ class LoginForm extends Component {
                         onChangeText={password => this.setState({ password })}
                     />
                 </CardSection>
-                
-                <CardSection />
-                <Button onPress={this.onBottonPress}>
-                    Log In
-                </Button>
-                <Text style={styles.errorTextStyle}>
+                 <Text style={styles.errorTextStyle}>
                     {this.state.error}
                 </Text>
+                <CardSection>
+                    {this.renderButton()}
+                </CardSection>
             </Card>
         )
     }
@@ -61,7 +74,6 @@ const styles = {
         fontSize: 20,
         alignSelf: 'center',
         color: 'red',
-        marginTop: '20%'
     }
 }
 
