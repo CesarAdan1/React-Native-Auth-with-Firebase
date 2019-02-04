@@ -43,13 +43,14 @@ class LoginForm extends Component {
                         onChangeText={password => this.setState({ password })}
                     />
                 </CardSection>
-                <Text style={styles.errorTextStyle}>
-                    {this.state.error}
-                </Text>
+                
                 <CardSection />
                 <Button onPress={this.onBottonPress}>
                     Log In
                 </Button>
+                <Text style={styles.errorTextStyle}>
+                    {this.state.error}
+                </Text>
             </Card>
         )
     }
@@ -59,7 +60,8 @@ const styles = {
     errorTextStyle: {
         fontSize: 20,
         alignSelf: 'center',
-        color: 'red'
+        color: 'red',
+        marginTop: '20%'
     }
 }
 
