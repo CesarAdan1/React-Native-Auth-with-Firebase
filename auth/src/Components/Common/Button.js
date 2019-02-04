@@ -9,8 +9,13 @@ const Button = ({ onPress, children }) => {
     } = styles;
 
     return (
-        <TouchableOpacity onPress={ onPress }style={buttonStyle}>
-            <Text style={textStyle}>
+        <TouchableOpacity 
+            onPress={ onPress } 
+            style={buttonStyle}
+        >
+            <Text 
+                style={textStyle}
+            >
                 {children}
             </Text>
         </TouchableOpacity>
@@ -20,20 +25,20 @@ const Button = ({ onPress, children }) => {
 const styles = {
     textStyle: {
         alignSelf: 'center',
-        color: '#007aff',
-        fontSize: 16,
+        color: 'white',
+        fontSize: 18,
         fontWeight: '600',
-        paddingTop: 10,
-        paddingBottom: 10
+        zIndex: 1,
     },
     buttonStyle: {
-        flex: 1,
-        alignSelf: 'stretch',
-        backgroundColor: '#fff',
+        backgroundColor: 'blue',
         borderRadius: 5,
-        borderWidth: 1,
+        paddingTop: 40,
+        paddinBottom: 40,
         borderColor: '#007aff',
-        marginLeft: 5
+        width: '100%',
+        height: 50,
+        zIndex: 1
     }
 }
 //export an object, see index.js

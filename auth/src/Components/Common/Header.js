@@ -2,7 +2,6 @@ import React from 'react';
 import { Text, View } from 'react-native';
 
 const styles = {
-    backgroundColor: 'white',
     textAlign: 'center',
     color: 'black',
     width: '100%',

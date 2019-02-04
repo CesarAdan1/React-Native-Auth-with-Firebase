@@ -20,8 +20,10 @@ class App extends Component {
 
     render() {
         return (
-            <SafeAreaView style={{backgroundColor:'white'}}>
-                <Header headerText="Authentication"/>
+            <SafeAreaView style={{backgroundColor:'white', width: '100%', height: '100%'}}>
+                <Header 
+                    header="Authentication" 
+                />
                 <LoginForm />
             </SafeAreaView>
         )
