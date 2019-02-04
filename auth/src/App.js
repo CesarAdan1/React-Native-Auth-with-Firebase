@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import { SafeAreaView, Text } from 'react-native';
-import { Header } from './Components/Common';
+import { Header, Button, Spinner } from './Components/Common';
 import firebase from 'firebase';
 import LoginForm from './Components/LoginForm';
 
 
 class App extends Component {
+    state = {
+        loggedIn: null
+    }
     //firebas setup in react-native
     componentWillMount() {
         firebase.initializeApp({
@@ -16,15 +19,36 @@ class App extends Component {
                 storageBucket: "auth-e52aa.appspot.com",
                 messagingSenderId: "59383043973"
         });
-    };
+
+        firebase.auth().onAuthStateChanged((user) => {
+            if(user) {
+                this.setState({ loggedIn: true });
+            } else {
+                this.setState({ loggedIn: false })
+            }
+        });
+    }
+
+    renderContent() {
+        switch (this.state.loggedIn) {
+            case true:
+                return (
+                <Button onPress={() => firebase.auth().signOut()}>Log Out</Button>
+                );
+            case false:
+                return <LoginForm />;
+            default:
+                return <Spinner size="large" />;
+        }
+    }
 
     render() {
         return (
-            <SafeAreaView style={{backgroundColor:'white', height: 'auto'}}>
+            <SafeAreaView style={{backgroundColor:'white', height: '100%'}}>
                 <Header 
                     header="Authentication" 
                 />
-                <LoginForm />
+                {this.renderContent()}
             </SafeAreaView>
         )
     }
